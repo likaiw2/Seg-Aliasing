@@ -1,0 +1,7 @@
+*.pyc
+*.log
+
+RSCMQA_224
+RSCMQA
+
+*/__init__.py
