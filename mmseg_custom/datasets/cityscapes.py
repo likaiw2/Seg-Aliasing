@@ -15,7 +15,7 @@ class CityscapesDataset(CustomDataset):
     """Cityscapes dataset.
 
     The ``img_suffix`` is fixed to '_leftImg8bit.png' and ``seg_map_suffix`` is
-    fixed to '_gtFine_labelTrainIds.png' for Cityscapes dataset.
+    fixed to '_gtFine_labelIds.png' for Cityscapes dataset.
     """
 
     CLASSES = ('road', 'sidewalk', 'building', 'wall', 'fence', 'pole',
@@ -31,7 +31,7 @@ class CityscapesDataset(CustomDataset):
 
     def __init__(self,
                  img_suffix='_leftImg8bit.png',
-                 seg_map_suffix='_gtFine_labelTrainIds.png',
+                 seg_map_suffix='_gtFine_labelIds.png',
                  **kwargs):
         super(CityscapesDataset, self).__init__(
             img_suffix=img_suffix, seg_map_suffix=seg_map_suffix, **kwargs)
@@ -212,3 +212,44 @@ class CityscapesDataset(CustomDataset):
             CSEval.evaluateImgLists(pred_list, seg_map_list, CSEval.args))
 
         return eval_results
+    
+    
+    
+    
+if __name__ == "__main__":
+    dataset = CityscapesDataset(image_dir='/data/likai/cityscapes/leftImg8bit/test', mask_dir='/data/likai/cityscapes/gtFine/test', transforms=None)
+    print(len(dataset))
+    image, meta = dataset[0]
+    print(image.shape)
+    print(meta['imagen'])
+    print(meta['raw_image'].shape)
+    print(meta['mask'].shape)
+    # print(meta['mask'])
+    print(np.unique(meta['mask']))
+    print()
+
+    # config = dict({
+    #     'image_dir': '/data/likai/cityscapes/leftImg8bit/test',
+    #     'mask_dir': '/data/likai/cityscapes/gtFine/test',
+    #     'batch_size': 1,
+    #     'num_workers': 1,
+    #     'training': False,
+    #     'transforms': Compose([
+    #         Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5), max_pixel_value=255),
+    #         ToTensorV2()
+    #     ])
+    # })
+
+    # # 初始化 CityscapesLoader
+    # loader = CityscapesLoader(config)
+
+    # # 获取一个 batch
+    # for images, metas in loader:
+    #     print("Image batch shape:", images.shape)   # [B, 3, H, W]
+    #     # print("Image unique values:", np.unique(images.numpy()))
+    #     print("Mask batch shape:", metas['mask'].shape)  # [B, H, W]
+    #     print("Mask unique values:", np.unique(metas['mask'].numpy()))
+    #     print("Raw image shape:", metas['raw_image'].shape)
+    #     print("Image filenames:", metas['imagen'])
+    #     print()
+    #     break

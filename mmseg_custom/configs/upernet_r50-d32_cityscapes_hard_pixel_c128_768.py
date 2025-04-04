@@ -1,5 +1,5 @@
 dataset_type = 'CityscapesDataset'
-data_root = 'RSCMQA'
+data_root = 'dataset'
 # data_root = '/data3/chenlinwei/dataset/'
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
@@ -38,16 +38,23 @@ test_pipeline = [
         ])
 ]
 
-BATCH_SIZE = 8
-GPU = 1
+BATCH_SIZE = 4
+GPU = 2
+
+img_suffix='_leftImg8bit.png'
+seg_map_suffix='_gtFine_labelIds.png'
+# seg_map_suffix='_gtFine_instanceIds.png'
+
 data = dict(
     samples_per_gpu=BATCH_SIZE,
-    workers_per_gpu=8,
+    workers_per_gpu=BATCH_SIZE,
     train=dict(
         type=dataset_type,
         data_root=data_root,
         img_dir='cityscapes/leftImg8bit/train',
         ann_dir='cityscapes/gtFine/train',
+        img_suffix=img_suffix,
+        seg_map_suffix=seg_map_suffix,
         pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
