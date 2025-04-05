@@ -1333,3 +1333,26 @@ class RandomMosaic(object):
         repr_str += f'pad_val={self.pad_val}, '
         repr_str += f'seg_pad_val={self.pad_val})'
         return repr_str
+
+@PIPELINES.register_module()
+class ConvertToLabelID(object):
+    """Convert trainId to labelId for Cityscapes.
+    
+    This transform maps segmentation labels from trainId to official labelId,
+    required for evaluation or saving results.
+    """
+    def __init__(self):
+        pass
+
+    def __call__(self, results):
+        import cityscapesscripts.helpers.labels as CSLabels
+        seg_map = results['gt_semantic_seg']
+        seg_map_copy = seg_map.copy()
+        for trainId, label in CSLabels.trainId2label.items():
+            seg_map_copy[seg_map == trainId] = label.id
+        results['gt_semantic_seg'] = seg_map_copy
+        return results
+
+    def __repr__(self):
+        return self.__class__.__name__ + '()'
+

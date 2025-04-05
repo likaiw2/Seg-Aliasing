@@ -16,6 +16,7 @@ train_pipeline = [
     dict(type='Normalize', **img_norm_cfg),
     dict(type='Pad', size=crop_size, pad_val=0, seg_pad_val=255),
     dict(type='DefaultFormatBundle'),
+    # dict(type='ConvertToLabelID'),
     dict(type='Collect', keys=['img', 'gt_semantic_seg']),
 ]
 test_pipeline = [

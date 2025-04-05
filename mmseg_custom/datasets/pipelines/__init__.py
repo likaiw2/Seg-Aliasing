@@ -7,7 +7,7 @@ from .test_time_aug import MultiScaleFlipAug
 from .transforms import (CLAHE, AdjustGamma, Normalize, Pad,
                          PhotoMetricDistortion, RandomCrop, RandomCutOut,
                          RandomFlip, RandomMosaic, RandomRotate, Rerange,
-                         Resize, RGB2Gray, SegRescale)
+                         Resize, RGB2Gray, SegRescale, ConvertToLabelID)
 from .add_noise import AddNoisyImg
 __all__ = [
     'Compose', 'to_tensor', 'ToTensor', 'ImageToTensor', 'ToDataContainer',
@@ -16,5 +16,6 @@ __all__ = [
     'Normalize', 'SegRescale', 'PhotoMetricDistortion', 'RandomRotate',
     'AdjustGamma', 'CLAHE', 'Rerange', 'RGB2Gray', 'RandomCutOut',
     'RandomMosaic',
-    'AddNoisyImg'
+    'AddNoisyImg',
+    'ConvertToLabelID'
 ]
