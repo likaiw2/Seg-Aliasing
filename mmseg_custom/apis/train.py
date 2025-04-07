@@ -13,7 +13,8 @@ from mmcv.utils import build_from_cfg
 
 from mmseg_custom import digit_version
 from mmseg.core import DistEvalHook, EvalHook, build_optimizer
-from mmseg.datasets import build_dataloader, build_dataset
+from mmseg.datasets import build_dataloader
+from mmseg_custom.datasets import build_dataset
 from mmseg.utils import (build_ddp, build_dp, find_latest_checkpoint,
                          get_root_logger)
 
