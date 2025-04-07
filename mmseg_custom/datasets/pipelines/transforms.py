@@ -1346,10 +1346,21 @@ class ConvertToLabelID(object):
 
     def __call__(self, results):
         import cityscapesscripts.helpers.labels as CSLabels
+        from mmcv.parallel import DataContainer
         seg_map = results['gt_semantic_seg']
-        seg_map_copy = seg_map.copy()
-        for trainId, label in CSLabels.trainId2label.items():
-            seg_map_copy[seg_map == trainId] = label.id
+        if isinstance(seg_map, DataContainer):
+            seg_map = seg_map.data
+            
+        seg_map_copy = seg_map.clone()
+        
+        for label in CSLabels.labels:
+            seg_map_copy[seg_map == label.id] = label.trainId
+            
+        # Set the ignored labels to 255
+        seg_map_copy[seg_map_copy == 255] = 0
+
+        # print(seg_map_copy.unique())
+        
         results['gt_semantic_seg'] = seg_map_copy
         return results
 

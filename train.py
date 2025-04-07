@@ -15,7 +15,7 @@ from mmcv.utils import Config, DictAction, get_git_hash
 
 from mmseg_custom import __version__
 from mmseg_custom.apis import init_random_seed, set_random_seed, train_segmentor
-from mmseg.datasets import build_dataset
+from mmseg_custom.datasets import build_dataset
 from mmseg_custom.models import build_segmentor
 from mmseg.utils import (collect_env, get_device, get_root_logger,
                          setup_multi_processes)
@@ -23,7 +23,8 @@ from mmseg.utils import (collect_env, get_device, get_root_logger,
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Train a segmentor')
-    parser.add_argument('--config', help='train config file path', default = "mmseg_custom/configs/upernet_r50-d32_cityscapes_hard_pixel_c128_768.py")
+    # parser.add_argument('--config', help='train config file path', default = "mmseg_custom/configs/upernet_r50-d32_cityscapes_hard_pixel_c128_768.py")
+    parser.add_argument('--config', help='train config file path', default = "mmseg_custom/configs/earthvqa_train.py")
     parser.add_argument('--work-dir', help='the dir to save logs and models', default="out")
     parser.add_argument(
         '--load-from', help='the checkpoint file to load weights from')

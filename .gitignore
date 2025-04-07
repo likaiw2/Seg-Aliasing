@@ -7,3 +7,4 @@ RSCMQA
 */__init__.py
 out/
 dataset/
+weights/
